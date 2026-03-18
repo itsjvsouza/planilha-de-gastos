@@ -23,16 +23,16 @@ while True:
                 break
 
             else:
-                print('Ação inválida.')
+                print('\nAção inválida.')
                 continue
 
             descricao = str(input('Descrição: '))
             valor = float(input('Valor: R$'))
             forma = str(input('Forma (Pix ou Crédito): '))
-            confirmacao = int(input(f'\n{data_usuario}, {descricao}, {valor}, {forma} \n\n1 - Sim \n2 - Não \n\nOs dados estão corretos? '))
+            confirmacao = int(input(f'\n{data_usuario}, {descricao}, R${valor}, {forma} \n\n1 - Sim \n2 - Não \n\nOs dados estão corretos? '))
 
             if confirmacao == 1:
-                linha = (f'{data}, {descricao}, R${valor}, {forma}')
+                linha = (f'{data},{descricao},{valor},{forma}\n')
 
                 with open('data/gastos.csv', 'a') as arquivo:
                     arquivo.write(linha)
@@ -44,13 +44,40 @@ while True:
                 continue
     
     elif inicio == 2:
-        with open('data/gastos.csv', 'r') as arquivo:
-            linhas = arquivo.readlines()
         
-            print(linhas)
+        while True:
+            m = int(input('\n1 - Janeiro \n2 - Fevereiro \n3 - Março \n4 - Abril \n5 - Maio \n6 - Junho \n7 - Julho \n8 - Agosto \n9 - Setembro \n10 - Outubro \n11 - Novembro \n12 - Dezembro \n13 - Voltar \n\nConsultar gastos de que mês? '))
+            print('') #Print para dar espaço entre o primeiro gasto e o input do usuário.
+
+            if m >= 1 and m <=12:  
+                with open('data/gastos.csv', 'r') as arquivo:
+                    linhas = arquivo.readlines()
+
+                total = 0
+
+                for linha in linhas:
+                    partes = linha.split(',')
+                    valor = float(partes[2])
+                    data_str = partes[0]
+                    data = datetime.strptime(data_str, '%Y-%m-%d')
+                    
+                    if data.month == m:
+                        print(linha)
+
+                        total = total + valor
+
+                print(f'\nTotal gasto no mês: R${total}')
+                break
+
+            elif m == 13:
+                break
+
+            else:
+                print('Opção inválida.')
+                continue
     
     elif inicio == 3:
         break
 
     else:
-        print('Ação inválida.')
+        print('\nAção inválida.')
