@@ -1,26 +1,27 @@
+from src.interface import MENU_PRINCIPAL, MENU_DATA, MENU_PAGAMENTO, MENU_CONFIRMACAO, MENU_REPETIR_GASTO, MENU_MES, MENU_REPETIR_CONSULTA, MENU_EXCLUIR
 from datetime import datetime, date
 import os
 os.system('cls')
 
 while True:
 
-    inicio = int(input('\n1 - Adicionar gasto \n2 - Consultar gastos \n3 - Excluir gasto \n4 - Encerrar \n\nDigite o número correspondente à ação desejada: '))
+    inicio = int(input(MENU_PRINCIPAL))
 
     if inicio == 1:
 
         while True:
-            d = int(input('\n1 - Utilizar data de hoje \n2 - Digitar data \n3 - Voltar \n\nOpção: '))
+            escolha = int(input(MENU_DATA))
 
-            if d == 1:
+            if escolha == 1:
                 data = date.today()
                 data_usuario = data.strftime('%d/%m/%Y')
                 
-            elif d == 2:
+            elif escolha == 2:
                 data_usuario = str(input('Digite a data (DD/MM/YYYY): '))
                 data_obj = datetime.strptime(data_usuario, '%d/%m/%Y')
                 data = data_obj.strftime('%Y-%m-%d')
 
-            elif d == 3:
+            elif escolha == 3:
                 break
 
             else:
@@ -29,7 +30,7 @@ while True:
 
             descricao = str(input('\nDescrição: '))
             valor = float(input('\nValor: R$'))
-            forma = str(input('\n1 - Pix \n2 - Crédito \n\nForma de pagamento: '))
+            forma = str(input(MENU_PAGAMENTO))
 
             if forma == '1':
                 forma = 'Pix'
@@ -37,7 +38,7 @@ while True:
             elif forma == '2':
                 forma = 'Crédito'
 
-            confirmacao = int(input(f'\n{data_usuario}, {descricao}, R${valor}, {forma} \n\n1 - Sim \n2 - Não \n\nOs dados estão corretos? '))
+            confirmacao = int(input(f"{data_usuario}, {descricao}, R${valor}, {forma}" + MENU_CONFIRMACAO))
 
             if confirmacao == 1:
                 linha = (f'{data},{descricao},{valor},{forma}\n')
@@ -47,7 +48,7 @@ while True:
                 
                 print('\n\n\033[1;32mGasto salvo com sucesso!\033[m')
                 
-                pergunta = int(input('\n\nDeseja adicionar outro gasto? \n\n1 - Sim \n2 - Não \n\nOpção: '))
+                pergunta = int(input(MENU_REPETIR_GASTO))
 
                 if pergunta == 1:
                     continue
@@ -61,10 +62,10 @@ while True:
     elif inicio == 2:
         
         while True:
-            m = int(input('\n1 - Janeiro \n2 - Fevereiro \n3 - Março \n4 - Abril \n5 - Maio \n6 - Junho \n7 - Julho \n8 - Agosto \n9 - Setembro \n10 - Outubro \n11 - Novembro \n12 - Dezembro \n13 - Voltar \n\nConsultar gastos de que mês? '))
+            escolha = int(input(MENU_MES))
             print()
 
-            if m >= 1 and m <=12:  
+            if escolha >= 1 and escolha <=12:  
                 with open('data/gastos.csv', 'r', encoding='utf-8') as arquivo:
                     linhas = arquivo.readlines()
 
@@ -76,14 +77,14 @@ while True:
                     data_str = partes[0]
                     data = datetime.strptime(data_str, '%Y-%m-%d')
                     
-                    if data.month == m:
+                    if data.month == escolha:
                         print(linha)
 
                         total = total + valor
 
                 print(f'\nTotal gasto no mês: R${total}')
                 
-                pergunta = int(input('\n\nDeseja consultar outro gasto? \n\n1 - Sim \n2 - Não \n\nOpção: '))
+                pergunta = int(input(MENU_REPETIR_CONSULTA))
 
                 if pergunta == 1:
                     continue
@@ -91,7 +92,7 @@ while True:
                 else:
                     break
 
-            elif m == 13:
+            elif escolha == 13:
                 break
 
             else:
@@ -99,24 +100,36 @@ while True:
                 continue
     
     elif inicio == 3:
-        with open('data/gastos.csv', 'r', encoding='utf-8') as arquivo:
-            linhas = arquivo.readlines()
-
-        for i, linha in enumerate(linhas):
-            print(f'{i + 1} - {linha}')
         
-        excluir = int(input('\nDigite o número do gasto que deseja excluir: '))
+        escolha = int(input(MENU_EXCLUIR))
 
-        if excluir >= 1 and excluir <= len(linhas):
-            del linhas[excluir - 1]
+        if escolha >= 1 and escolha <= 12:
+            with open('data/gastos.csv', 'r', encoding='utf-8') as arquivo:
+                linhas = arquivo.readlines()
 
-            with open('data/gastos.csv', 'w', encoding='utf-8') as arquivo:
-                arquivo.writelines(linhas)
+            for i, linha in enumerate(linhas):
+                partes = linha.split(',')
+                data_str = partes[0]
+                data = datetime.strptime(data_str, '%Y-%m-%d')
+                
+                if data.month == escolha:
+                    print(f'\n{i + 1} - {linha}')
+                
+                else:
+                    
+            
+            excluir = int(input('\nDigite o número do gasto que deseja excluir: '))
 
-            print('\n\033[1;32mGasto excluído com sucesso!\033[m')
+            if excluir >= 1 and excluir <= len(linhas):
+                del linhas[excluir - 1]
 
-        else:
-            print('\nNúmero inválido.')
+                with open('data/gastos.csv', 'w', encoding='utf-8') as arquivo:
+                    arquivo.writelines(linhas)
+
+                print('\n\033[1;32mGasto excluído com sucesso!\033[m')
+
+            else:
+                print('\nNúmero inválido.')
 
     elif inicio == 4:
         break
