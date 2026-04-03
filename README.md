@@ -8,7 +8,8 @@ Projeto desenvolvido em Python para gerenciamento pessoal de gastos mensais.
 - Utilizar automaticamente a data do sistema ou digitar manualmente;
 - Armazenamento de dados em arquivo CSV;
 - Consulta de gastos por mês;
-- Cálculo automático do total gasto no mês escolhido.
+- Cálculo automático do total gasto no mês escolhido;
+- Exclusão de gasto salvo no arquivo CSV filtrando por mês.
 
 ## Tecnologias utilizadas
 
@@ -26,10 +27,8 @@ Projeto desenvolvido em Python para gerenciamento pessoal de gastos mensais.
 
 A pasta `data` contém um arquivo `gastos.csv` com dados de exemplo para teste do programa.
 
-Atualmente, o sistema pode apresentar limitações com caracteres especiais (acentuação), sendo recomendado o uso de texto sem acentos.
-
 ## Desenvolvedor
 
-João Souza
-Recife-PE
-Estudante de Sistemas de Informação - CESAR School
+- João Souza
+- Recife-PE
+- Estudante de Sistemas de Informação - CESAR School
