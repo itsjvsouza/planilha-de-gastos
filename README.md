@@ -21,12 +21,12 @@ Project developed in Python for personal monthly expense management.
 
 1. Clone the repository;
 2. Open the program folder in a text editor (VS Code) or a Python IDE;
-3. Execute the "main.py" file.
+3. Execute the `main.py` file.
 
 ## Notes
 
-The "data" folder contains an "expenses.csv" file with example data for testing the program.
-The program includes the payment method called "PIX," which is widely used in Brazil.
+- The `data` folder contains an `expenses.csv` file with example data for testing the program;
+- The program includes the payment method called "PIX", which is widely used in Brazil.
 
 ## Developer
 
