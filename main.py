@@ -1,56 +1,56 @@
 import src.interface as ui
 from datetime import datetime, date
 import os
-os.system('cls')
+os.system("cls")
 
 while True:
 
-    inicio = int(input(ui.MENU_PRINCIPAL))
+    start = int(input(ui.MAIN_MENU))
 
-    if inicio == 1:
+    if start == 1:
 
         while True:
-            escolha = int(input(ui.MENU_DATA))
+            choice = int(input(ui.DATE_MENU))
 
-            if escolha == 1:
-                data = date.today()
-                data_usuario = data.strftime('%d/%m/%Y')
+            if choice == 1:
+                dt = date.today()
+                user_date = dt.strftime("%d/%m/%Y")
                 
-            elif escolha == 2:
-                data_usuario = str(input('Digite a data (DD/MM/YYYY): '))
-                data_obj = datetime.strptime(data_usuario, '%d/%m/%Y')
-                data = data_obj.strftime('%Y-%m-%d')
+            elif choice == 2:
+                user_date = str(input("Enter the date (DD/MM/YYYY): "))
+                date_obj = datetime.strptime(user_date, "%d/%m/%Y")
+                dt = date_obj.strftime("%Y-%m-%d")
 
-            elif escolha == 3:
+            elif choice == 3:
                 break
 
             else:
-                print('\nAção inválida.')
+                print("\nInvalid action.")
                 continue
 
-            descricao = str(input('\nDescrição: '))
-            valor = float(input('\nValor: R$'))
-            forma = str(input(ui.MENU_PAGAMENTO))
+            description = str(input("\nDescription: "))
+            value = float(input("\nValue: $"))
+            method = str(input(ui.PAYMENT_METHOD_MENU))
 
-            if forma == '1':
-                forma = 'Pix'
+            if method == "1":
+                method = "Debit/PIX"
             
-            elif forma == '2':
-                forma = 'Crédito'
+            elif method == "2":
+                method = "Credit"
 
-            confirmacao = int(input(f"\n{data_usuario}, {descricao}, R${valor}, {forma}" + ui.MENU_CONFIRMACAO))
+            confirmation = int(input(f"\n{user_date}, {description}, ${value}, {method}" + ui.CONFIRMATION_MENU))
 
-            if confirmacao == 1:
-                linha = (f'{data},{descricao},{valor},{forma}\n')
+            if confirmation == 1:
+                line = (f"{dt},{description},{value},{method}\n")
 
-                with open('data/gastos.csv', 'a', encoding='utf-8') as arquivo:
-                    arquivo.write(linha)
+                with open("data/expenses.csv", "a", encoding="utf-8") as file:
+                    file.write(line)
                 
-                print('\n\n\033[1;32mGasto salvo com sucesso!\033[m')
+                print("\n\n\033[1;32mExpense saved successfully!\033[m")
                 
-                pergunta = int(input(ui.MENU_REPETIR_GASTO))
+                question = int(input(ui.REPEAT_EXPENSE_MENU))
 
-                if pergunta == 1:
+                if question == 1:
                     continue
                 
                 else:
@@ -59,89 +59,89 @@ while True:
             else:
                 continue
     
-    elif inicio == 2:
+    elif start == 2:
         
         while True:
-            escolha = int(input(ui.MENU_MES))
+            choice = int(input(ui.MONTH_MENU))
             print()
 
-            if escolha >= 1 and escolha <=12:  
-                with open('data/gastos.csv', 'r', encoding='utf-8') as arquivo:
-                    linhas = arquivo.readlines()
+            if choice >= 1 and choice <= 12:  
+                with open("data/expenses.csv", "r", encoding="utf-8") as file:
+                    lines = file.readlines()
 
                 total = 0
 
-                for linha in linhas:
-                    partes = linha.split(',')
-                    valor = float(partes[2])
-                    data_str = partes[0]
-                    data = datetime.strptime(data_str, '%Y-%m-%d')
+                for line in lines:
+                    parts = line.split(",")
+                    value = float(parts[2])
+                    date_str = parts[0]
+                    dt = datetime.strptime(date_str, "%Y-%m-%d")
                     
-                    if data.month == escolha:
-                        print(linha)
+                    if dt.month == choice:
+                        print(line)
 
-                        total = total + valor
+                        total = total + value
 
-                print(f'\nTotal gasto no mês: R${total}')
+                print(f"\nTotal spent in the month: ${total}")
                 
-                pergunta = int(input(ui.MENU_REPETIR_CONSULTA))
+                question = int(input(ui.REPEAT_QUERY_MENU))
 
-                if pergunta == 1:
+                if question == 1:
                     continue
                 
                 else:
                     break
 
-            elif escolha == 13:
+            elif choice == 13:
                 break
 
             else:
-                print('Opção inválida.')
+                print("Invalid option.")
                 continue
     
-    elif inicio == 3:
+    elif start == 3:
         
-        escolha = int(input(ui.MENU_EXCLUIR))
+        choice = int(input(ui.DELETE_MENU))
 
-        if escolha >= 1 and escolha <= 12:
-            with open('data/gastos.csv', 'r', encoding='utf-8') as arquivo:
-                linhas = arquivo.readlines()
-                enumerate(linhas)
+        if choice >= 1 and choice <= 12:
+            with open("data/expenses.csv", "r", encoding="utf-8") as file:
+                lines = file.readlines()
+                enumerate(lines)
 
             while True:
                 
-                linhas_mes = []
+                month_lines = []
                 
-                for linha in linhas:
-                    partes = linha.split(',')
-                    data_str = partes[0]
-                    data = datetime.strptime(data_str, '%Y-%m-%d')
+                for line in lines:
+                    parts = line.split(",")
+                    date_str = parts[0]
+                    dt = datetime.strptime(date_str, "%Y-%m-%d")
 
-                    if data.month == escolha:
-                        linhas_mes.append(linha)
+                    if dt.month == choice:
+                        month_lines.append(line)
                     
                 
-                for i in range(len(linhas_mes)):
-                    print(f'\n{i + 1} - {linhas_mes[i]}')  
+                for i in range(len(month_lines)):
+                    print(f"\n{i + 1} - {month_lines[i]}")  
                 
-                excluir = int(input("\nDigite o número do gasto que deseja excluir: "))
+                delete_item = int(input("\nEnter the number of the expense you wish to delete: "))
 
-                if excluir >= 1 and excluir <= len(linhas_mes):
+                if delete_item >= 1 and delete_item <= len(month_lines):
 
-                    confirmacao = int(input(f"\n\n\033[1;31m{linhas_mes[excluir - 1]}\033[m" + ui.MENU_CONFIRMACAO_EXCLUSAO))
+                    confirmation = int(input(f"\n\n\033[1;31m{month_lines[delete_item - 1]}\033[m" + ui.DELETE_CONFIRMATION_MENU))
 
-                    if confirmacao == 1:
-                        linhas.remove(linhas_mes[excluir - 1])
-                        del linhas_mes[excluir - 1]
+                    if confirmation == 1:
+                        lines.remove(month_lines[delete_item - 1])
+                        del month_lines[delete_item - 1]
 
-                        with open('data/gastos.csv', 'w', encoding='utf-8') as arquivo:
-                            arquivo.writelines(linhas)
+                        with open("data/expenses.csv", "w", encoding="utf-8") as file:
+                            file.writelines(lines)
 
-                        print('\n\033[1;32mGasto excluído com sucesso!\033[m')
+                        print("\n\033[1;32mExpense deleted successfully!\033[m")
 
-                        pergunta = int(input(ui.MENU_REPETIR_EXCLUSAO))
+                        question = int(input(ui.REPEAT_DELETE_MENU))
 
-                        if pergunta == 1:
+                        if question == 1:
                             continue
 
                         else:
@@ -151,11 +151,11 @@ while True:
                         continue
                     
                 else:
-                    print('\nNúmero inválido.')
+                    print("\nInvalid number.")
                     continue
 
-    elif inicio == 4:
+    elif start == 4:
         break
 
     else:
-        print('\nAção inválida.')
+        print("\nInvalid action.")

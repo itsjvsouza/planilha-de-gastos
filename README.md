@@ -1,34 +1,35 @@
-# Gerenciador de Gastos em Python
+# Python Expense Manager
 
-Projeto desenvolvido em Python para gerenciamento pessoal de gastos mensais.
+Project developed in Python for personal monthly expense management.
 
-## Funcionalidades
+## Features
 
-- Adição de gastos (Data, Descrição, Valor e Forma de pagamento);
-- Utilizar automaticamente a data do sistema ou digitar manualmente;
-- Armazenamento de dados em arquivo CSV;
-- Consulta de gastos por mês;
-- Cálculo automático do total gasto no mês escolhido;
-- Exclusão de gasto salvo no arquivo CSV filtrando por mês.
+- Add expenses (Date, Description, Value, and Payment Method);
+- Automatically use the system date or enter it manually;
+- Data storage in a CSV file;
+- View expenses by month;
+- Automatic calculation of the total spent in the chosen month;
+- Delete expenses saved in the CSV file by filtering by month.
 
-## Tecnologias utilizadas
+## Technologies Used
 
 - Python
-- Manipulação de arquivo CSV
-- Módulo datetime
+- CSV file manipulation
+- datetime module
 
-## Como executar
+## How to Run
 
-1. Clone o repositório;
-2. Abra a pasta do programa em um editor de texto (vscode) ou IDE de Python;
-3. Execute o arquivo main.py.
+1. Clone the repository;
+2. Open the program folder in a text editor (VS Code) or a Python IDE;
+3. Execute the "main.py" file.
 
-## Observações
+## Notes
 
-A pasta `data` contém um arquivo `gastos.csv` com dados de exemplo para teste do programa.
+The "data" folder contains an "expenses.csv" file with example data for testing the program.
+The program includes the payment method called "PIX," which is widely used in Brazil.
 
-## Desenvolvedor
+## Developer
 
 - João Souza
-- Recife-PE
-- Estudante de Sistemas de Informação - CESAR School
+- Recife, Pernambuco, Brazil
+- Information Systems Student - CESAR School | IT Technician
