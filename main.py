@@ -70,6 +70,8 @@ while True:
                     lines = file.readlines()
 
                 total = 0
+                sum_credit = 0
+                sum_debit_pix = 0
 
                 for line in lines:
                     parts = line.split(",")
@@ -80,8 +82,16 @@ while True:
                     if dt.month == choice:
                         print(line)
 
-                        total = total + value
+                        total += value
 
+                        if parts[3] == "Credit\n":
+                            sum_credit += value
+
+                        elif parts[3] == "Debit/PIX\n":
+                            sum_debit_pix += value
+
+                print(f"\nTotal spent on credit: ${sum_credit}")
+                print(f"\nTotal spent on debit and PIX: ${sum_debit_pix}")
                 print(f"\nTotal spent in the month: ${total}")
                 
                 question = int(input(ui.REPEAT_QUERY_MENU))
